@@ -10,7 +10,7 @@ function NavBar() {
             <Separator />
             <NavLink to='/employees'>All Employees</NavLink>
             <Separator />
-            <NavLink to='/report'>report</NavLink>
+            <NavLink to='/report'>Report</NavLink>
        </nav>
     )
 }

@@ -1,15 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default class EmployeeFilter extends React.Component {
+    
     render() {
+        const Separator = () => <span> | </span>
         return (
         <div>
             Filter:{'   '}
-            <a href='/#/employees'>All Employees</a>
-            {' | '}
-            <a href='/#/employees?employed=true'>Employed</a>
-            {' | '}
-            <a href='/#/employees?employed=false'>Not Employed</a>
+            <Link to={{ pathname: '/employees'}}>All Employees</Link>
+            <Separator />
+            <Link to={{ pathname: '/employees', search: '?employed=true'}}>Employed</Link>
+            <Separator />
+            <Link to={{ pathname: '/employees', search: '?employed=false'}}>Not Employed</Link>
         </div>
         )
     }

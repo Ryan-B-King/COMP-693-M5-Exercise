@@ -1,19 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-export default class EmployeeFilter extends React.Component {
-    
-    render() {
-        const Separator = () => <span> | </span>
-        return (
+export default function EmployeeFilter () {
+    const navigate = useNavigate()
+    return (
         <div>
-            Filter:{'   '}
-            <Link to={{ pathname: '/employees'}}>All Employees</Link>
-            <Separator />
-            <Link to={{ pathname: '/employees', search: '?employed=true'}}>Employed</Link>
-            <Separator />
-            <Link to={{ pathname: '/employees', search: '?employed=false'}}>Not Employed</Link>
+            Currently Employed:
+            {' '}
+            <select 
+                onChange={(e) => navigate(
+                    e.target.value ?
+                    `/employees?employed=${e.target.value}` :
+                    `/employees`
+                )}>
+                <option value="">All</option>
+                <option value="true">Employed</option>
+                <option value="false">Not Employed</option>
+            </select>
         </div>
-        )
-    }
+    )
+    
 }

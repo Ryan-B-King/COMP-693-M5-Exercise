@@ -1,9 +1,19 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import EmployeeFilter from './EmployeeFilter.jsx'
 import EmployeeAdd from './EmployeeAdd.jsx'
 
 function EmployeeTable(props)  {
-    const employeeRows = props.employees.map(employee =>
+    // GET THE URL
+    const { search } = useLocation()
+    // GET THE PARAMETERS FROM THE URL
+    const query = new URLSearchParams(search)
+    // GET THE 'EMPLOYED' PARAMETER SPECIFICALLY
+    const q = query.get('employed')
+
+    const employeeRows = props.employees
+        .filter(employee => (q ? String(employee.currentlyEmployed) === q : true))
+        .map(employee =>
         <EmployeeRow 
             key={employee._id} 
             employee={employee}
@@ -13,6 +23,7 @@ function EmployeeTable(props)  {
         <table className = "bordered-table">
             <thead>
                 <tr>
+                    <th>Action</th>
                     <th>Name</th>
                     <th>Extension</th>
                     <th>Email</th>
@@ -35,6 +46,7 @@ function EmployeeRow(props) {
     }
     return (
         <tr>
+            <td><a href={`/#/edit/${props.employee._id}`}>Edit</a></td>
             <td>{props.employee.name}</td>
             <td>{props.employee.extension}</td>
             <td>{props.employee.email}</td>
